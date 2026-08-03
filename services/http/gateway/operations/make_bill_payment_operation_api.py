@@ -1,4 +1,3 @@
-import allure
 import httpx
 
 from schemas.operations_schemas import MakeOperationRequestSchema
@@ -6,19 +5,21 @@ from services.http.gateway.operations.operations_api import OperationsGatewayAPI
 
 
 class MakeBillPaymentOperationGatewayAPI(OperationsGatewayAPI):
-    def __init__(self):
-        super().__init__()
-        self.MAKE_BILL_PAYMENT_OPERATION_API = (
-            f"{self.OPERATIONS_API}/make-bill-payment-operation"
-        )
+    def __init__(self, client: httpx.Client | None = None):
+        super().__init__(client)
+        self.PATH = "/make-bill-payment-operation"
+        self.MAKE_BILL_PAYMENT_OPERATION_PATH = self.OPERATIONS_PATH_NAME + self.PATH
+        self.MAKE_BILL_PAYMENT_OPERATION_API = self.OPERATIONS_API + self.PATH
 
-    @allure.step("Send POST request to make bill payment operation")
     def send_request(self, card_id: str, account_id: str):
         operation_data = MakeOperationRequestSchema(
             card_id=card_id, account_id=account_id
         )
-        response = httpx.post(
+        extensions = {"path_name": self.MAKE_BILL_PAYMENT_OPERATION_PATH}
+
+        response = self.CLIENT.post(
             self.MAKE_BILL_PAYMENT_OPERATION_API,
             json=operation_data.model_dump(by_alias=True),
+            extensions=extensions,
         )
         self.get_operation_response_data(response)

@@ -1,14 +1,15 @@
-import allure
 import httpx
 
 from services.http.gateway.users.users_api import UsersGatewayAPI
 
 
 class GetUserGatewayAPI(UsersGatewayAPI):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, client: httpx.Client | None = None):
+        super().__init__(client)
+        self.PATH = "/{user_id}"
+        self.GET_USER_PATH_NAME = self.USERS_PATH_NAME + self.PATH
 
-    @allure.step("Send GET request to get user by user id")
     def send_request(self, user_id: str):
-        response = httpx.get(f"{self.USERS_API}/{user_id}")
+        extensions = {"path_name": self.GET_USER_PATH_NAME}
+        response = self.CLIENT.get(f"{self.USERS_API}/{user_id}", extensions=extensions)
         self.get_user_response_data(response)

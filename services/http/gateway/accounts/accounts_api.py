@@ -1,11 +1,13 @@
+import httpx
+
 from schemas.accounts_schemas import AccountResponseSchema
 from services.http.base_api import BaseAPI
 
 
 class AccountsGatewayAPI(BaseAPI):
-    def __init__(self):
-        super().__init__()
-        self.ACCOUNTS_API = f"{self.BASE_API}/accounts"
+    def __init__(self, client: httpx.Client | None = None):
+        super().__init__(client)
+        self.ACCOUNTS_PATH_NAME = self.ACCOUNTS_API = "/accounts"
 
     def get_account_response_data(self, response):
         content_type = response.headers.get("content-type", "")

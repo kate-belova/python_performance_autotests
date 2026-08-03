@@ -1,4 +1,3 @@
-import allure
 import httpx
 
 from schemas.operations_schemas import MakeOperationRequestSchema
@@ -6,19 +5,23 @@ from services.http.gateway.operations.operations_api import OperationsGatewayAPI
 
 
 class MakeCashWithdrawalOperationGatewayAPI(OperationsGatewayAPI):
-    def __init__(self):
-        super().__init__()
-        self.MAKE_CASH_WITHDRAWAL_OPERATION_API = (
-            f"{self.OPERATIONS_API}/make-cash-withdrawal-operation"
+    def __init__(self, client: httpx.Client | None = None):
+        super().__init__(client)
+        self.PATH = "/make-cash-withdrawal-operation"
+        self.MAKE_CASH_WITHDRAWAL_OPERATION_PATH_NAME = (
+            self.OPERATIONS_PATH_NAME + self.PATH
         )
+        self.MAKE_CASH_WITHDRAWAL_OPERATION_API = self.OPERATIONS_API + self.PATH
 
-    @allure.step("Send POST request to make cash withdrawal operation")
     def send_request(self, card_id: str, account_id: str):
         operation_data = MakeOperationRequestSchema(
             card_id=card_id, account_id=account_id
         )
-        response = httpx.post(
+        extensions = {"path_name": self.MAKE_CASH_WITHDRAWAL_OPERATION_PATH_NAME}
+
+        response = self.CLIENT.post(
             self.MAKE_CASH_WITHDRAWAL_OPERATION_API,
             json=operation_data.model_dump(by_alias=True),
+            extensions=extensions,
         )
         self.get_operation_response_data(response)

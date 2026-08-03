@@ -1,14 +1,17 @@
-import allure
 import httpx
 
 from services.http.gateway.operations.operations_api import OperationsGatewayAPI
 
 
 class GetOperationGatewayAPI(OperationsGatewayAPI):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, client: httpx.Client | None = None):
+        super().__init__(client)
+        self.PATH = "/{operation_id}"
+        self.GET_OPERATION_PATH_NAME = self.OPERATIONS_PATH_NAME + self.PATH
 
-    @allure.step("Send GET request to get operation details by operation id")
     def send_request(self, operation_id: str):
-        response = httpx.get(f"{self.OPERATIONS_API}/{operation_id}")
+        extensions = {"path_name": self.GET_OPERATION_PATH_NAME}
+        response = self.CLIENT.get(
+            f"{self.OPERATIONS_API}/{operation_id}", extensions=extensions
+        )
         self.get_operation_response_data(response)
