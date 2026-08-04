@@ -1,25 +1,26 @@
-import allure
+from grpc import Channel
 
 from contracts.services.gateway.operations.rpc_make_transfer_operation_pb2 import (
     MakeTransferOperationRequest,
     MakeTransferOperationResponse,
 )
+from contracts.services.operations.operation_pb2 import OperationStatus
 from services.grpc.gateway.operations.operations_grpc_service import (
     OperationsGatewaygRPCService,
 )
+from tools.fakers import fake
 
 
 class MakeTransferOperationGatewayMethod(OperationsGatewaygRPCService):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, channel: Channel | None = None):
+        super().__init__(channel)
         self.REQUEST = MakeTransferOperationRequest
         self.RESPONSE = MakeTransferOperationResponse
 
-    @allure.step("Send gRPC request to make transfer operation")
     def send_request(self, card_id: str, account_id: str):
         request = self.REQUEST(
-            status=self.status,
-            amount=self.amount,
+            status=fake.proto_enum(OperationStatus),
+            amount=fake.amount(),
             card_id=card_id,
             account_id=account_id,
         )

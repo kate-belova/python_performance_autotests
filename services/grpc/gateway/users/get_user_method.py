@@ -1,17 +1,18 @@
-import allure
+from grpc import Channel
 
-from contracts.services.gateway.users.rpc_get_user_pb2 import GetUserRequest, \
-    GetUserResponse
+from contracts.services.gateway.users.rpc_get_user_pb2 import (
+    GetUserRequest,
+    GetUserResponse,
+)
 from services.grpc.gateway.users.users_grpc_service import UsersGatewaygRPCService
 
 
 class GetUserGatewayMethod(UsersGatewaygRPCService):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, channel: Channel | None = None):
+        super().__init__(channel)
         self.REQUEST = GetUserRequest
         self.RESPONSE = GetUserResponse
 
-    @allure.step("Send gRPC request to get user by user id")
     def send_request(self, user_id):
         request = self.REQUEST(id=user_id)
         self.RESPONSE_DATA = self.SERVICE.GetUser(request)

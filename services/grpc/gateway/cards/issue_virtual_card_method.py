@@ -1,4 +1,4 @@
-import allure
+from grpc import Channel
 
 from contracts.services.gateway.cards.rpc_issue_virtual_card_pb2 import (
     IssueVirtualCardRequest,
@@ -8,12 +8,11 @@ from services.grpc.gateway.cards.cards_grpc_service import CardsGatewaygRPCServi
 
 
 class IssueVirtualCardGatewayMethod(CardsGatewaygRPCService):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, channel: Channel | None = None):
+        super().__init__(channel)
         self.REQUEST = IssueVirtualCardRequest
         self.RESPONSE = IssueVirtualCardResponse
 
-    @allure.step("Send gRPC request to issue virtual card")
     def send_request(self, user_id: str, account_id: str):
         request = self.REQUEST(user_id=user_id, account_id=account_id)
         self.RESPONSE_DATA = self.SERVICE.IssueVirtualCard(request)

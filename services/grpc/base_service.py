@@ -1,19 +1,11 @@
-import os
-
 import grpc
 
-# noinspection PyUnresolvedReferences
-import grpc.experimental.gevent as grpc_gevent
-from dotenv import load_dotenv
-
-grpc_gevent.init_gevent()
-
-load_dotenv()
+from services.grpc.client import create_grpc_channel
 
 
 class BaseService:
-    def __init__(self):
-        self.CHANNEL = grpc.insecure_channel(str(os.getenv("HOST_PORT")))
+    def __init__(self, channel: grpc.Channel | None = None):
+        self.CHANNEL = channel or create_grpc_channel()
         self.RESPONSE_DATA = None
 
     def check_response_type(self, response_type):

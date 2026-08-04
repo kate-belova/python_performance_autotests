@@ -1,24 +1,11 @@
 from datetime import datetime
 from enum import StrEnum
 
-from faker import Faker
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
 from schemas.documents_schemas import DocumentGatewaySchema
-
-faker = Faker()
-
-# fmt: off
-CATEGORIES = [
-    "alcohol", "air_tickets", "beauty", "books", "cafes", "cinema", "clothing",
-    "education", "electricity", "electronics", "fast_food", "flowers", "gaming", 
-    "gas_stations", "government_services", "groceries", "healthcare", "home_goods", 
-    "hotels", "internet", "insurance", "marketplace", "mobile", "parking", "pets", 
-    "pharmacies", "public_transport", "restaurants", "subscriptions", "sports", 
-    "supermarket", "taxi", "tolls", "travel", "utilities", "water"
-]
-# fmt: on
+from tools.fakers import fake
 
 
 class OperationType(StrEnum):
@@ -81,21 +68,11 @@ class MakeOperationRequestSchema(BaseModel):
         validate_by_name=True,
         validate_by_alias=True,
     )
-
-    status: OperationStatus = Field(
-        default_factory=lambda: faker.random_element(list(OperationStatus))
-    )
-    amount: float = Field(
-        default_factory=lambda: faker.pyfloat(
-            positive=True,
-            min_value=1,
-            max_value=50000,
-            right_digits=2,
-        )
-    )
+    status: OperationStatus = Field(default_factory=lambda: fake.enum(OperationStatus))
+    amount: float = Field(default_factory=fake.amount)
     card_id: str
     account_id: str
 
 
 class MakePurchaseOperationRequestSchema(MakeOperationRequestSchema):
-    category: str = Field(default_factory=lambda: faker.random_element(CATEGORIES))
+    category: str = Field(default_factory=fake.category)

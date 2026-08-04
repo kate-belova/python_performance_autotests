@@ -1,8 +1,7 @@
-from faker import Faker
 from pydantic import BaseModel, EmailStr, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
-faker = Faker()
+from tools.fakers import fake
 
 
 class UserRequestSchema(BaseModel):
@@ -12,11 +11,11 @@ class UserRequestSchema(BaseModel):
         validate_by_alias=True,
     )
 
-    email: EmailStr = Field(default_factory=faker.email)
-    last_name: str = Field(default_factory=faker.last_name)
-    first_name: str = Field(default_factory=faker.first_name)
-    middle_name: str = Field(default_factory=faker.first_name)
-    phone_number: str = Field(default_factory=faker.phone_number)
+    email: EmailStr = Field(default_factory=fake.email)
+    last_name: str = Field(default_factory=fake.last_name)
+    first_name: str = Field(default_factory=fake.first_name)
+    middle_name: str = Field(default_factory=fake.middle_name)
+    phone_number: str = Field(default_factory=fake.phone_number)
 
 
 class UserGatewaySchema(BaseModel):

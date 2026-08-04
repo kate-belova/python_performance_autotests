@@ -1,4 +1,4 @@
-import allure
+from grpc import Channel
 
 from contracts.services.gateway.operations.rpc_get_operation_pb2 import (
     GetOperationRequest,
@@ -10,12 +10,11 @@ from services.grpc.gateway.operations.operations_grpc_service import (
 
 
 class GetOperationGatewayMethod(OperationsGatewaygRPCService):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, channel: Channel | None = None):
+        super().__init__(channel)
         self.REQUEST = GetOperationRequest
         self.RESPONSE = GetOperationResponse
 
-    @allure.step("Send gRPC request to get operation details by operation id")
     def send_request(self, operation_id: str):
         request = self.REQUEST(id=operation_id)
         self.RESPONSE_DATA = self.SERVICE.GetOperation(request)

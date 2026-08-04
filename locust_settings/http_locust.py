@@ -5,7 +5,7 @@ from locust.env import Environment
 
 
 def locust_request_event_hook(request: Request) -> None:
-    request.extensions["start_time"] = time.time()
+    request.extensions["start_time"] = time.perf_counter()
 
 
 def locust_response_event_hook(environment: Environment):
@@ -19,9 +19,9 @@ def locust_response_event_hook(environment: Environment):
 
         request = response.request
         path_name = request.extensions.get("path_name", request.url.path)
-        start_time = request.extensions.get("start_time", time.time())
+        start_time = request.extensions.get("start_time", time.perf_counter())
 
-        response_time = (time.time() - start_time) * 1000
+        response_time = (time.perf_counter() - start_time) * 1000
         response_length = len(response.read())
 
         if environment.events is None:

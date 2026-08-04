@@ -1,3 +1,5 @@
+from grpc import Channel
+
 from contracts.services.gateway.accounts.accounts_gateway_service_pb2_grpc import (
     AccountsGatewayServiceStub,
 )
@@ -5,8 +7,8 @@ from services.grpc.base_service import BaseService
 
 
 class AccountsGatewaygRPCService(BaseService):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, channel: Channel | None = None):
+        super().__init__(channel)
         self.SERVICE = AccountsGatewayServiceStub(self.CHANNEL)
 
     @property
