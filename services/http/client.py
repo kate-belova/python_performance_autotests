@@ -4,7 +4,7 @@ import os
 import httpx
 from dotenv import load_dotenv
 
-from locust_settings.http_locust import (
+from locust_settings.http.http_locust import (
     locust_request_event_hook,
     locust_response_event_hook,
 )

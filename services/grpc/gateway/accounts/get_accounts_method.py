@@ -9,7 +9,7 @@ from services.grpc.gateway.accounts.accounts_grpc_service import (
 )
 
 
-class GetAccountsGetwayMethod(AccountsGatewaygRPCService):
+class GetAccountsGatewayMethod(AccountsGatewaygRPCService):
     def __init__(self, channel: Channel | None = None):
         super().__init__(channel)
         self.REQUEST = GetAccountsRequest

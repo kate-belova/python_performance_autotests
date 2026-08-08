@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from grpc import Channel
 from locust.env import Environment
 
-from locust_settings.grpc_locust import LocustInterceptor
+from locust_settings.grpc.grpc_locust import LocustInterceptor
 
 grpc_gevent.init_gevent()
 
