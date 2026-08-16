@@ -17,3 +17,7 @@ class OperationsGatewayAPI(BaseAPI):
         content_type = response.headers.get("content-type", "")
         if "application/json" in content_type:
             self.RESPONSE_DATA = OperationResponseSchema(**response.json())
+
+    @property
+    def operation_id(self):
+        return self.RESPONSE_DATA.operation.id

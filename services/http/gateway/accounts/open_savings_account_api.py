@@ -5,7 +5,7 @@ from services.http.gateway.accounts.accounts_api import AccountsGatewayAPI
 
 
 class OpenSavingsAccountGatewayAPI(AccountsGatewayAPI):
-    def __init__(self, client: httpx.Client):
+    def __init__(self, client: httpx.Client | None = None):
         super().__init__(client)
         self.PATH = "/open-savings-account"
         self.OPEN_SAVINGS_ACCOUNT_PATH_NAME = self.ACCOUNTS_PATH_NAME + self.PATH

@@ -10,3 +10,7 @@ class CardsGatewaygRPCService(BaseService):
     def __init__(self, channel: Channel | None = None):
         super().__init__(channel)
         self.SERVICE = CardsGatewayServiceStub(self.CHANNEL)
+
+    @property
+    def card_id(self):
+        return self.RESPONSE_DATA.card.id

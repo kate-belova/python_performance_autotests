@@ -13,3 +13,7 @@ class CardsGatewayAPI(BaseAPI):
         content_type = response.headers.get("content-type", "")
         if "application/json" in content_type:
             self.RESPONSE_DATA = IssueCardResponseSchema(**response.json())
+
+    @property
+    def card_id(self):
+        return self.RESPONSE_DATA.card.id
