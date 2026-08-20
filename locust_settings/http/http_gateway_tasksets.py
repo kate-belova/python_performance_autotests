@@ -68,8 +68,8 @@ class GatewayHTTPClientsMixin:
     get_user_client: GetUserGatewayAPI
 
     get_accounts_client: GetAccountsGatewayAPI
+    open_debit_card_account_client: OpenDebitCardAccountGatewayAPI
     open_credit_card_account_client: OpenCreditCardAccountGatewayAPI
-    open_debit_account_client: OpenDebitCardAccountGatewayAPI
     open_deposit_account_client: OpenDepositAccountGatewayAPI
     open_savings_account_client: OpenSavingsAccountGatewayAPI
 
@@ -101,7 +101,7 @@ class GatewayHTTPClientsMixin:
         self.open_credit_card_account_client = OpenCreditCardAccountGatewayAPI(
             client=self.http_client
         )
-        self.open_debit_account_client = OpenDebitCardAccountGatewayAPI(
+        self.open_debit_card_account_client = OpenDebitCardAccountGatewayAPI(
             client=self.http_client
         )
         self.open_deposit_account_client = OpenDepositAccountGatewayAPI(

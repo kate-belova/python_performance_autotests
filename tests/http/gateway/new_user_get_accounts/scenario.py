@@ -1,3 +1,4 @@
+import httpx
 from locust import task
 
 from locust_settings.http.http_gateway_tasksets import GatewayHTTPTaskSet
@@ -9,7 +10,11 @@ class GetAccountsTaskSet(GatewayHTTPTaskSet):
 
     @task(2)
     def create_user(self):
-        self.create_user_client.send_request()
+        try:
+            self.create_user_client.send_request()
+        except httpx.RequestError:
+            return
+
         self.user_id = self.create_user_client.USER_ID
 
     @task(2)
@@ -17,14 +22,20 @@ class GetAccountsTaskSet(GatewayHTTPTaskSet):
         if self.user_id is None:
             return
 
-        self.open_deposit_account_client.send_request(user_id=self.user_id)
+        try:
+            self.open_deposit_account_client.send_request(user_id=self.user_id)
+        except httpx.RequestError:
+            return
 
     @task(6)
     def get_accounts(self):
         if self.user_id is None:
             return
 
-        self.get_accounts_client.send_request(user_id=self.user_id)
+        try:
+            self.get_accounts_client.send_request(user_id=self.user_id)
+        except httpx.RequestError:
+            return
 
 
 class GetAccountsUser(LocustBaseUser):

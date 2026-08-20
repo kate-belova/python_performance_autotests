@@ -51,7 +51,7 @@ class OperationsSummaryGatewaySchema(BaseModel):
 
 
 class OperationsSummaryResponseSchema(BaseModel):
-    summary: list[OperationsSummaryGatewaySchema]
+    summary: OperationsSummaryGatewaySchema
 
 
 class OperationReceiptResponseSchema(BaseModel):

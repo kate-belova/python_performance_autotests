@@ -1,5 +1,5 @@
 import httpx
-from locust import task, User, between
+from locust import task
 
 from locust_settings.http.http_gateway_tasksets import GatewayHTTPSequentialTaskSet
 from locust_settings.user import LocustBaseUser
@@ -13,9 +13,10 @@ class GetDocumentsSequentialTaskSet(GatewayHTTPSequentialTaskSet):
     def create_user(self):
         try:
             self.create_user_client.send_request()
-            self.user_id = self.create_user_client.USER_ID
         except httpx.RequestError:
-            pass
+            return
+
+        self.user_id = self.create_user_client.USER_ID
 
     @task
     def open_savings_account(self):
@@ -24,9 +25,10 @@ class GetDocumentsSequentialTaskSet(GatewayHTTPSequentialTaskSet):
 
         try:
             self.open_savings_account_client.send_request(user_id=self.user_id)
-            self.account_id = self.open_savings_account_client.account_id
         except httpx.RequestError:
-            pass
+            return
+
+        self.account_id = self.open_savings_account_client.account_id
 
     @task
     def get_documents(self):
@@ -35,11 +37,9 @@ class GetDocumentsSequentialTaskSet(GatewayHTTPSequentialTaskSet):
 
         try:
             self.get_tariff_document_client.send_request(account_id=self.account_id)
-            self.get_contract_document_client.send_request(
-                account_id=self.account_id
-            )
+            self.get_contract_document_client.send_request(account_id=self.account_id)
         except httpx.RequestError:
-            pass
+            return
 
 
 class GetDocumentsUser(LocustBaseUser):
