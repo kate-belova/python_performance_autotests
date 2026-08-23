@@ -7,7 +7,7 @@ from services.http.gateway.cards.cards_api import CardsGatewayAPI
 class IssueVirtualCardGatewayAPI(CardsGatewayAPI):
     def __init__(self, client: httpx.Client | None = None):
         super().__init__(client)
-        self.PATH = "/issue-virtual-cards"
+        self.PATH = "/issue-virtual-card"
         self.ISSUE_VIRTUAL_CARD_PATH_NAME = self.CARDS_PATH_NAME + self.PATH
         self.ISSUE_VIRTUAL_CARDS_API = self.CARDS_API + self.PATH
 
