@@ -1,8 +1,7 @@
-import httpx
 from locust import events, task
 from locust.env import Environment
 
-from locust_settings.http.http_gateway_tasksets import GatewayHTTPTaskSet
+from locust_settings.grpc.grpc_gateway_tasksets import GatewayGRPCTaskSet
 from locust_settings.user import LocustBaseUser
 from seeds.builder import build_grpc_seeds_builder
 from seeds.scenarios.existing_user_make_purchase_operation import (
@@ -20,7 +19,7 @@ def init(environment: Environment, **kwargs):
     environment.seeds = seeds_scenario.load()
 
 
-class MakePurchaseOperationTaskSet(GatewayHTTPTaskSet):
+class MakePurchaseOperationTaskSet(GatewayGRPCTaskSet):
     seed_user: SeedUserResult
     user_id: str
     card_id: str
@@ -35,33 +34,21 @@ class MakePurchaseOperationTaskSet(GatewayHTTPTaskSet):
 
     @task
     def make_purchase_operation(self):
-        try:
-            self.make_purchase_operation_client.send_request(
-                card_id=self.card_id, account_id=self.account_id
-            )
-        except httpx.RequestError:
-            return
+        self.make_purchase_operation_client.send_request(
+            card_id=self.card_id, account_id=self.account_id
+        )
 
     @task(2)
     def get_accounts(self):
-        try:
-            self.get_accounts_client.send_request(user_id=self.user_id)
-        except httpx.RequestError:
-            return
+        self.get_accounts_client.send_request(user_id=self.user_id)
 
     @task(2)
     def get_operations(self):
-        try:
-            self.get_operations_client.send_request(account_id=self.account_id)
-        except httpx.RequestError:
-            return
+        self.get_operations_client.send_request(account_id=self.account_id)
 
     @task(2)
     def get_operations_summary(self):
-        try:
-            self.get_operations_summary_client.send_request(account_id=self.account_id)
-        except httpx.RequestError:
-            return
+        self.get_operations_summary_client.send_request(account_id=self.account_id)
 
 
 class MakePurchaseOperationScenarioUser(LocustBaseUser):

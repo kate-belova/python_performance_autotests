@@ -1,4 +1,4 @@
-from locust import task, User, between
+from locust import task
 
 from locust_settings.grpc.grpc_gateway_tasksets import GatewayGRPCSequentialTaskSet
 from locust_settings.user import LocustBaseUser
