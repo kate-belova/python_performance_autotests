@@ -13,4 +13,6 @@ class OperationsGatewaygRPCService(BaseService):
 
     @property
     def operation_id(self):
+        if self.RESPONSE_DATA is None:
+            raise ValueError("RESPONSE_DATA is empty. Call send_request() first.")
         return self.RESPONSE_DATA.operation.id

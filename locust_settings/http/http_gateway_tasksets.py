@@ -38,7 +38,7 @@ from services.http.gateway.operations.get_operations_summary_api import (
 from services.http.gateway.operations.make_bill_payment_operation_api import (
     MakeBillPaymentOperationGatewayAPI,
 )
-from services.http.gateway.operations.make_cahback_operation_api import (
+from services.http.gateway.operations.make_cashback_operation_api import (
     MakeCashbackOperationGatewayAPI,
 )
 from services.http.gateway.operations.make_cash_withdrawal_operation_api import (

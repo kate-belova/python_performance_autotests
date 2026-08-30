@@ -18,6 +18,8 @@ class MakeCashbackOperationGatewayMethod(OperationsGatewaygRPCService):
         self.RESPONSE = MakeCashbackOperationResponse
 
     def send_request(self, card_id: str, account_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         request = self.REQUEST(
             status=fake.proto_enum(OperationStatus),
             amount=fake.amount(),

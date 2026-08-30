@@ -8,6 +8,14 @@ class BaseService:
         self.CHANNEL = channel or create_grpc_channel()
         self.RESPONSE_DATA = None
 
+    def reset_attributes(self, *attributes):
+        for attribute in attributes:
+            if not hasattr(self, attribute):
+                raise AttributeError(
+                    f"{type(self).__name__} has no attribute {attribute!r}"
+                )
+            setattr(self, attribute, None)
+
     def check_response_type(self, response_type):
         if self.RESPONSE_DATA is None:
             raise ValueError("RESPONSE_DATA is empty. Call send_request() first.")

@@ -8,11 +8,7 @@ class CardsGatewayAPI(BaseAPI):
     def __init__(self, client: httpx.Client | None = None):
         super().__init__(client)
         self.CARDS_PATH_NAME = self.CARDS_API = "/cards"
-
-    def get_card_response_data(self, response):
-        content_type = response.headers.get("content-type", "")
-        if "application/json" in content_type:
-            self.RESPONSE_DATA = IssueCardResponseSchema(**response.json())
+        self.SCHEMA = IssueCardResponseSchema
 
     @property
     def card_id(self):

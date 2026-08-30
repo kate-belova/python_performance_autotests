@@ -11,14 +11,14 @@ class GetTariffDocumentGatewayAPI(DocumentsGatewayAPI):
         self.GET_TARIFF_DOCUMENT_PATH_NAME = (
             self.DOCUMENTS_PATH_NAME + self.PATH + "/{account_id}"
         )
+        self.SCHEMA = TariffDocumentResponseSchema
 
     def send_request(self, account_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         extensions = {"path_name": self.GET_TARIFF_DOCUMENT_PATH_NAME}
         response = self.CLIENT.get(
             f"{self.DOCUMENTS_API}{self.PATH}/{account_id}",
             extensions=extensions,
         )
-
-        content_type = response.headers.get("content-type", "")
-        if "application/json" in content_type:
-            self.RESPONSE_DATA = TariffDocumentResponseSchema(**response.json())
+        self.get_response_data(response)

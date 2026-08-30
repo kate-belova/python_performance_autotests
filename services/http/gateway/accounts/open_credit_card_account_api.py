@@ -12,6 +12,8 @@ class OpenCreditCardAccountGatewayAPI(AccountsGatewayAPI):
         self.OPEN_CREDIT_CARD_ACCOUNT_API = self.ACCOUNTS_API + self.PATH
 
     def send_request(self, user_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         user_data = OpenAccountRequestSchema(user_id=user_id).model_dump(by_alias=True)
 
         extensions = {"path_name": self.OPEN_CREDIT_CARD_ACCOUNT_PATH_NAME}

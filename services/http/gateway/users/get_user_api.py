@@ -10,6 +10,8 @@ class GetUserGatewayAPI(UsersGatewayAPI):
         self.GET_USER_PATH_NAME = self.USERS_PATH_NAME + self.PATH
 
     def send_request(self, user_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         extensions = {"path_name": self.GET_USER_PATH_NAME}
         response = self.CLIENT.get(f"{self.USERS_API}/{user_id}", extensions=extensions)
-        self.get_user_response_data(response)
+        self.get_response_data(response)

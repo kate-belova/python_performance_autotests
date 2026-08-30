@@ -16,6 +16,8 @@ class CreateUserGatewayMethod(UsersGatewaygRPCService):
         self.USER_ID = None
 
     def send_request(self):
+        self.reset_attributes("RESPONSE_DATA", "USER_ID")
+
         request = self.REQUEST(
             email=fake.email(),
             last_name=fake.last_name(),

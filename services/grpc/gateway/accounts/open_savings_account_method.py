@@ -1,8 +1,8 @@
 from grpc import Channel
 
-from contracts.services.gateway.accounts.rpc_open_deposit_account_pb2 import (
-    OpenDepositAccountRequest,
-    OpenDepositAccountResponse,
+from contracts.services.gateway.accounts.rpc_open_savings_account_pb2 import (
+    OpenSavingsAccountRequest,
+    OpenSavingsAccountResponse,
 )
 from services.grpc.gateway.accounts.accounts_grpc_service import (
     AccountsGatewaygRPCService,
@@ -12,10 +12,12 @@ from services.grpc.gateway.accounts.accounts_grpc_service import (
 class OpenSavingsAccountGatewayMethod(AccountsGatewaygRPCService):
     def __init__(self, channel: Channel | None = None):
         super().__init__(channel)
-        self.REQUEST = OpenDepositAccountRequest
-        self.RESPONSE = OpenDepositAccountResponse
+        self.REQUEST = OpenSavingsAccountRequest
+        self.RESPONSE = OpenSavingsAccountResponse
 
     def send_request(self, user_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         request = self.REQUEST(user_id=user_id)
-        self.RESPONSE_DATA = self.SERVICE.OpenDepositAccount(request)
+        self.RESPONSE_DATA = self.SERVICE.OpenSavingsAccount(request)
         self.check_response_type(self.RESPONSE)

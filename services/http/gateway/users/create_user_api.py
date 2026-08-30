@@ -12,11 +12,13 @@ class CreateUserGatewayAPI(UsersGatewayAPI):
         self.USER_ID = None
 
     def send_request(self):
+        self.reset_attributes("RESPONSE_DATA", "USER_ID")
+
         user_data = UserRequestSchema().model_dump(by_alias=True)
         extensions = {"path_name": self.CREATE_USER_PATH_NAME}
 
         response = self.CLIENT.post(
             self.CREATE_USER_API, json=user_data, extensions=extensions
         )
-        self.get_user_response_data(response)
+        self.get_response_data(response)
         self.USER_ID = self.RESPONSE_DATA.user.id

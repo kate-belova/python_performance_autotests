@@ -10,6 +10,8 @@ class GetOperationGatewayAPI(OperationsGatewayAPI):
         self.GET_OPERATION_PATH_NAME = self.OPERATIONS_PATH_NAME + self.PATH
 
     def send_request(self, operation_id: str):
+        self.reset_attributes("RESPONSE_DATA")
+
         extensions = {"path_name": self.GET_OPERATION_PATH_NAME}
         response = self.CLIENT.get(
             f"{self.OPERATIONS_API}/{operation_id}", extensions=extensions

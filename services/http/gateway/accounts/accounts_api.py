@@ -10,9 +10,8 @@ class AccountsGatewayAPI(BaseAPI):
         self.ACCOUNTS_PATH_NAME = self.ACCOUNTS_API = "/accounts"
 
     def get_account_response_data(self, response):
-        content_type = response.headers.get("content-type", "")
-        if "application/json" in content_type:
-            self.RESPONSE_DATA = AccountResponseSchema(**response.json())
+        self.SCHEMA = AccountResponseSchema
+        self.get_response_data(response)
 
     @property
     def account_id(self):

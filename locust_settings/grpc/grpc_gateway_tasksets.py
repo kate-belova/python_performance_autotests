@@ -73,7 +73,7 @@ class GatewayGRPCClientsMixin:
 
     get_accounts_client: GetAccountsGatewayMethod
     open_credit_card_account_client: OpenCreditCardAccountGatewayMethod
-    open_debit_account_client: OpenDebitCardAccountGatewayMethod
+    open_debit_card_account_client: OpenDebitCardAccountGatewayMethod
     open_deposit_account_client: OpenDepositAccountGatewayMethod
     open_savings_account_client: OpenSavingsAccountGatewayMethod
 
@@ -102,10 +102,10 @@ class GatewayGRPCClientsMixin:
         self.get_user_client = GetUserGatewayMethod(channel=self.grpc_channel)
 
         self.get_accounts_client = GetAccountsGatewayMethod(channel=self.grpc_channel)
-        self.open_credit_card_account_client = OpenCreditCardAccountGatewayMethod(
+        self.open_debit_card_account_client = OpenDebitCardAccountGatewayMethod(
             channel=self.grpc_channel
         )
-        self.open_debit_account_client = OpenDebitCardAccountGatewayMethod(
+        self.open_credit_card_account_client = OpenCreditCardAccountGatewayMethod(
             channel=self.grpc_channel
         )
         self.open_deposit_account_client = OpenDepositAccountGatewayMethod(

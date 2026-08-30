@@ -13,4 +13,6 @@ class CardsGatewaygRPCService(BaseService):
 
     @property
     def card_id(self):
+        if self.RESPONSE_DATA is None:
+            raise ValueError("RESPONSE_DATA is empty. Call send_request() first.")
         return self.RESPONSE_DATA.card.id

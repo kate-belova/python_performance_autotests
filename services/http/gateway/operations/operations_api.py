@@ -14,9 +14,8 @@ class OperationsGatewayAPI(BaseAPI):
         return {"accountId": account_id}
 
     def get_operation_response_data(self, response):
-        content_type = response.headers.get("content-type", "")
-        if "application/json" in content_type:
-            self.RESPONSE_DATA = OperationResponseSchema(**response.json())
+        self.SCHEMA = OperationResponseSchema
+        self.get_response_data(response)
 
     @property
     def operation_id(self):
