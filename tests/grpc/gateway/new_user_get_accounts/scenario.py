@@ -27,5 +27,5 @@ class GetAccountsTaskSet(GatewayGRPCTaskSet):
         self.get_accounts_client.send_request(user_id=self.user_id)
 
 
-class GetAccountsUser(LocustBaseUser):
+class GetAccountsScenarioUser(LocustBaseUser):
     tasks = [GetAccountsTaskSet]

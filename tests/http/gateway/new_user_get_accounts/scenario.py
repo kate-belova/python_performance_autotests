@@ -38,5 +38,5 @@ class GetAccountsTaskSet(GatewayHTTPTaskSet):
             return
 
 
-class GetAccountsUser(LocustBaseUser):
+class GetAccountsScenarioUser(LocustBaseUser):
     tasks = [GetAccountsTaskSet]

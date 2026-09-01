@@ -30,5 +30,5 @@ class GetDocumentsSequentialTaskSet(GatewayGRPCSequentialTaskSet):
         self.get_contract_document_client.send_request(account_id=self.account_id)
 
 
-class GetDocumentsUser(LocustBaseUser):
+class GetDocumentsScenarioUser(LocustBaseUser):
     tasks = [GetDocumentsSequentialTaskSet]

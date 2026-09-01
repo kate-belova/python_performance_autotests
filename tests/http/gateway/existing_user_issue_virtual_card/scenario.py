@@ -48,5 +48,5 @@ class IssueVirtualCardTaskSet(GatewayHTTPTaskSet):
             return
 
 
-class IssueVirtualCardUser(LocustBaseUser):
+class IssueVirtualCardScenarioUser(LocustBaseUser):
     tasks = [IssueVirtualCardTaskSet]

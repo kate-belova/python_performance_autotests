@@ -41,5 +41,5 @@ class IssueVirtualCardTaskSet(GatewayGRPCTaskSet):
         )
 
 
-class IssueVirtualCardUser(LocustBaseUser):
+class IssueVirtualCardScenarioUser(LocustBaseUser):
     tasks = [IssueVirtualCardTaskSet]

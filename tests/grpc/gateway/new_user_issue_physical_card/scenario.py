@@ -31,5 +31,5 @@ class IssuePhysicalCardSequentialTaskSet(GatewayGRPCSequentialTaskSet):
         )
 
 
-class IssuePhysicalCardUser(LocustBaseUser):
+class IssuePhysicalCardScenarioUser(LocustBaseUser):
     tasks = [IssuePhysicalCardSequentialTaskSet]

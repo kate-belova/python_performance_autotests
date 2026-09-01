@@ -42,5 +42,5 @@ class GetDocumentsSequentialTaskSet(GatewayHTTPSequentialTaskSet):
             return
 
 
-class GetDocumentsUser(LocustBaseUser):
+class GetDocumentsScenarioUser(LocustBaseUser):
     tasks = [GetDocumentsSequentialTaskSet]
