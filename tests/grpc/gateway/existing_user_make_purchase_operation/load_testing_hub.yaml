@@ -2,7 +2,7 @@ api_url: http://localhost:13000
 service:
   id: 2
 scenario:
-  id: 28
+  id: 12
   name: "existing user make purchase operation"
   file: "tests/grpc/gateway/existing_user_make_purchase_operation/v1.conf"
   version: "v1"

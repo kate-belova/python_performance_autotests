@@ -2,7 +2,7 @@ api_url: http://localhost:13000
 service:
   id: 1
 scenario:
-  id: 24
+  id: 8
   name: "new user make top up operation"
   file: "tests/http/gateway/new_user_make_top_up_operation/v1.conf"
   version: "v1"

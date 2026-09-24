@@ -2,7 +2,7 @@ api_url: http://localhost:13000
 service:
   id: 2
 scenario:
-  id: 32
+  id: 16
   name: "new user make top up operation"
   file: "tests/grpc/gateway/new_user_make_top_up_operation/v1.conf"
   version: "v1"

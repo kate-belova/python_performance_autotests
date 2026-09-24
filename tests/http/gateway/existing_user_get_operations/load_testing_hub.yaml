@@ -2,7 +2,7 @@ api_url: http://localhost:13000
 service:
   id: 1
 scenario:
-  id: 18
+  id: 2
   name: "existing user get operations"
   file: "tests/http/gateway/existing_user_get_operations/v1.conf"
   version: "v1"

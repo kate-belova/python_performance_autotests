@@ -2,7 +2,7 @@ api_url: http://localhost:13000
 service:
   id: 1
 scenario:
-  id: 23
+  id: 7
   name: "new user issue physical card"
   file: "tests/http/gateway/new_user_issue_physical_card/v1.conf"
   version: "v1"
