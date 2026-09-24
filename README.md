@@ -15,7 +15,7 @@
 
 ## Тестовый стенд
 
-Для нагрузочного тестирования используется банковский тестовый стенд из курса
+Для нагрузочного тестирования используется банковский тестовый стенд
 [Performance QA Engineer](https://github.com/Nikita-Filonov/performance-qa-engineer-course).
 
 Стенд представляет собой микросервисное приложение с HTTP- и gRPC-интерфейсами
@@ -23,19 +23,10 @@
 
 ## Стек
 
-- Python
-- Locust
-- HTTPX
-- gRPC / grpcio
-- Pydantic
-- Docker / Docker Compose
-- PostgreSQL
-- Kafka
-- Redis
-- MinIO
-- Prometheus
-- Grafana
-- GitHub Actions
+**Тестирование:** Python · Locust · HTTPX · gRPC / grpcio · Pydantic
+
+**Инфраструктура:** Docker Compose · PostgreSQL · Kafka · Redis · MinIO · Prometheus ·
+Grafana · GitHub Actions
 
 ## Что реализовано
 
@@ -70,18 +61,18 @@
 ## Структура проекта
 
 ```text
-contracts/               # protobuf-контракты
-dumps/                   # данные для подготовки тестового окружения
-locust_settings/         # общие настройки Locust
-schemas/                 # модели данных
-seeds/                   # подготовка тестовых данных
-services/                # методы HTTP- и gRPC-сервисов
-tests/                   # сценарии нагрузочного тестирования
-tools/                   # вспомогательные инструменты
-config.py                # конфигурация проекта
-run_scenario.py          # запуск сценария и сохранение распределения задач
-docker-compose.load-testing-hub.yaml  # конфигурация Load Testing Hub
-pyproject.toml           # зависимости и настройки проекта
+contracts/                              # protobuf-контракты
+dumps/                                  # данные для подготовки тестового окружения
+locust_settings/                        # общие настройки Locust
+schemas/                                # модели данных
+seeds/                                  # подготовка тестовых данных
+services/                               # методы HTTP- и gRPC-сервисов
+tests/                                  # сценарии нагрузочного тестирования
+tools/                                  # вспомогательные инструменты
+config.py                               # конфигурация проекта
+run_scenario.py                         # запуск сценария и сохранение распределения задач
+docker-compose.load-testing-hub.yaml    # конфигурация Load Testing Hub
+pyproject.toml                          # зависимости и настройки проекта
 ```
 
 ## Установка
@@ -89,20 +80,6 @@ pyproject.toml           # зависимости и настройки прое
 ```bash
 git clone https://github.com/kate-belova/python_performance_autotests.git
 cd python_performance_autotests
-
-python -m venv .venv
-```
-
-# Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-# Linux/macOS
-
-```bash
-source .venv/bin/activate
 
 uv sync
 ```
